@@ -5,4 +5,4 @@ metadata:
   labels:
     app: use-custom-start-service
 spec:
-  replicas: 1
+  replicas: 3
