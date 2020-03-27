@@ -1,0 +1,19 @@
+bases:
+  - ../../base
+namespace: qztc-qa
+generatorOptions:
+  disableNameSuffixHash: true
+#configMapGenerator:
+#  - name: sonicmoving-management-platform-frontend-service-config
+#    literals:
+#      - REDIS_DATABASE=3
+#      - REDIS_HOST=sonicmoving-service-redis
+#      - REDIS_PORT=6379
+#      - SOP_SERVICE_REGISTRY_URL="http://sonicmoving-service-registry-qa-0.sonicmoving-service-registry-qa:8761/eureka/,http://sonicmoving-service-registry-qa-1.sonicmoving-service-registry-qa:8761/eureka/,http://sonicmoving-service-registry-qa-2.sonicmoving-service-registry-qa:8761/eureka/"
+#secretGenerator:
+#  - name: sonicmoving-management-platform-frontend-service-secret
+#    literals:
+#      - REDIS_PASSWORD=redis_SOUND318
+
+patchesStrategicMerge:
+  - deployment.yaml

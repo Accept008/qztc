@@ -1,0 +1,8 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: use-custom-start-service
+  labels:
+    app: use-custom-start-service
+spec:
+  replicas: 1

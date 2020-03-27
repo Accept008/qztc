@@ -1,0 +1,9 @@
+resources:
+    - deployment.yaml
+    - service.yaml
+    - metrics-service.yaml
+#patchesStrategicMerge:
+#  - limit_patch.yaml
+
+
+

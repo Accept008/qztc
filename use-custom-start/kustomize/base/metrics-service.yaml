@@ -1,0 +1,16 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: use-custom-start-service-monitor
+  labels:
+    app: use-custom-start-service-monitor
+spec:
+  ports:
+    - name: metrics
+      port: 8081
+      protocol: TCP
+      targetPort: 8081
+  selector:
+    app: use-custom-start-service
+  type: ClusterIP

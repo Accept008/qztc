@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: use-custom-start-service
+  labels:
+    app: use-custom-start-service
+spec:
+  strategy:
+    type: RollingUpdate
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: use-custom-start-service
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+            - labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                    - use-custom-start-service
+              topologyKey: "kubernetes.io/hostname"
+      containers:
+      - name: use-custom-start-service
+        image: registry.cn-hangzhou.aliyuncs.com/sonicmoving/chen-debug-service:1.0.1
+        imagePullPolicy: Always
+#        envFrom:
+#        - configMapRef:
+#            name: use-custom-start-service-config
+#        - secretRef:
+#            name: use-custom-start-service-secret
+        ports:
+        - containerPort: 8080
+          name: http
+          protocol: TCP
+        - containerPort: 8081
+          name: http-metrics
+          protocol: TCP
+        livenessProbe:
+          httpGet:
+            port: 8081
+            path: /actuator/health
+          initialDelaySeconds: 120
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            port: 8081
+            path: /actuator/health
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          successThreshold: 1
+          timeoutSeconds: 2
+      imagePullSecrets:
+        - name: docker-registry-aliyun-soundbus-secret
+  selector:
+    matchLabels:
+      app: use-custom-start-service
+
